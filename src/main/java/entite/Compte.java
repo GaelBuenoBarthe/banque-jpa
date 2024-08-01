@@ -18,7 +18,6 @@ public class Compte {
 
     @ManyToOne
     @JoinColumn(name = "client_id")
-    @Column(name = "client_id")
     private Client client;
 
     @OneToMany(mappedBy = "compte")

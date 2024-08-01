@@ -1,6 +1,7 @@
 package entite;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,7 +25,7 @@ public class Client {
     private Banque banque;
 
     @OneToMany(mappedBy = "client")
-    private List<Compte> comptes;
+    private List<Compte> comptes = new ArrayList<>();
 
     public Client(String nom, String prenom, Adresse adresse, Banque banque) {
         this.nom = nom;
@@ -34,7 +35,6 @@ public class Client {
     }
 
     public Client() {
-
     }
 
     public Long getId() {
