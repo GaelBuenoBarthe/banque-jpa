@@ -9,6 +9,16 @@ public class Adresse {
     private String codePostal;
     private String pays;
 
+    public Adresse(String rue, String ville, String codePostal, String pays) {
+        this.rue = rue;
+        this.ville = ville;
+        this.codePostal = codePostal;
+        this.pays = pays;
+    }
+
+    public Adresse() {
+    }
+
     public String getRue() {
         return rue;
     }
