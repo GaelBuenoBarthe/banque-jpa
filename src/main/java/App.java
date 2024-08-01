@@ -36,20 +36,25 @@ public class App {
 
         Client client1 = new Client("Bueno-Barthe", "Gaël", adresse1, banque);
         clientDAO.create(client1);
-
-        Client client2 = new Client("Syla", "Séga", adresse1, banque);
-        clientDAO.create(client2);
-
-        Compte compte = new Compte("123456789", 3250.0, Arrays.asList(client1, client2));
-        compteDAO.create(compte);
-
         Adresse adresse2 = new Adresse();
         adresse2.setRue("202 Rue du bug");
         adresse2.setVille("Toulouse");
         adresse2.setCodePostal("31000");
         adresse2.setPays("France");
 
-        Client client3 = new Client("Musk", "Elon", adresse2, banque);
+        Client client2 = new Client("Syla", "Séga", adresse2, banque);
+        clientDAO.create(client2);
+
+        Compte compte = new Compte("123456789", 3250.0, Arrays.asList(client1, client2));
+        compteDAO.create(compte);
+
+        Adresse adresse3 = new Adresse();
+        adresse3.setRue("303 SapceX Street");
+        adresse3.setVille("Houston");
+        adresse3.setCodePostal("77001");
+        adresse3.setPays("USA");
+
+        Client client3 = new Client("Musk", "Elon", adresse3, banque);
         clientDAO.create(client3);
 
         Scanner scanner = new Scanner(System.in);
