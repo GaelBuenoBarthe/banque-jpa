@@ -32,7 +32,7 @@ public class App {
         compteDAO.create(compte);
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the end date for AssuranceVie (yyyy-MM-dd): ");
+        System.out.println("Entrer la date d'expiration de l'assurance vie au format AAAA-MM-JJ: ");
         String dateFinStr = scanner.nextLine();
 
         try {
