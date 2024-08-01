@@ -1,3 +1,4 @@
+import Dao.BanqueDAO;
 import Dao.ClientDAO;
 import Dao.CompteDAO;
 import entite.*;
@@ -14,11 +15,13 @@ public class App {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("banque-jpa");
 
+        BanqueDAO banqueDAO = new BanqueDAO(emf);
         ClientDAO clientDAO = new ClientDAO(emf);
         CompteDAO compteDAO = new CompteDAO(emf);
 
         Banque banque = new Banque();
         banque.setNom("Banque Diginamic");
+        banqueDAO.create(banque);
 
         clientDAO.create(new Client("Bueno-Barthe", "Gaël", new Adresse("101 Rue du developpeur", "Montpellier", "34000", "France"), banque));
         clientDAO.create(new Client("Syla", "Séga", new Adresse("202 Rue du bug", "Toulouse", "31000", "France"), banque));
