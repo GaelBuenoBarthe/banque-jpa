@@ -1,3 +1,5 @@
+import Dao.ClientDAO;
+import Dao.CompteDAO;
 import entite.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -6,18 +8,25 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
+
 
 public class App {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("banque-jpa");
-        EntityManager em = emf.createEntityManager();
 
-        em.getTransaction().begin();
+        ClientDAO clientDAO = new ClientDAO();
+        CompteDAO compteDAO = new CompteDAO();
 
         Banque banque = new Banque();
         banque.setNom("Banque Diginamic");
+
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
         em.persist(banque);
+        em.getTransaction().commit();
+        em.close();
 
         Adresse adresse1 = new Adresse();
         adresse1.setRue("101 Rue du developpeur");
@@ -26,16 +35,13 @@ public class App {
         adresse1.setPays("France");
 
         Client client1 = new Client("Bueno-Barthe", "Gaël", adresse1, banque);
-        em.persist(client1);
+        clientDAO.create(client1);
 
         Client client2 = new Client("Syla", "Séga", adresse1, banque);
-        em.persist(client2);
+        clientDAO.create(client2);
 
         Compte compte = new Compte("123456789", 3250.0, Arrays.asList(client1, client2));
-        em.persist(compte);
-
-        client1.getComptes().add(compte);
-        client2.getComptes().add(compte);
+        compteDAO.create(compte);
 
         Adresse adresse2 = new Adresse();
         adresse2.setRue("202 Rue du bug");
@@ -44,7 +50,7 @@ public class App {
         adresse2.setPays("France");
 
         Client client3 = new Client("Musk", "Elon", adresse2, banque);
-        em.persist(client3);
+        clientDAO.create(client3);
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the end date for AssuranceVie (yyyy-MM-dd): ");
@@ -53,26 +59,21 @@ public class App {
         AssuranceVie assuranceVie = null;
         try {
             Date dateFin = new SimpleDateFormat("yyyy-MM-dd").parse(dateFinStr);
-            assuranceVie = new AssuranceVie("987654321", 5000.0, Arrays.asList(client3), dateFin, 2.5);
-            em.persist(assuranceVie);
+            assuranceVie = new AssuranceVie("987654321", 5000.0, List.of(client3), dateFin, 2.5);
+            compteDAO.create(assuranceVie);
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        LivretA livretA = new LivretA("1122334455", 3000.0, Arrays.asList(client3), 1.5);
-        em.persist(livretA);
-
-        client3.getComptes().add(assuranceVie);
-        client3.getComptes().add(livretA);
+        LivretA livretA = new LivretA("1122334455", 3000.0, List.of(client3), 1.5);
+        compteDAO.create(livretA);
 
         Virement virement = new Virement(new Date(), 200.0, "Virement a Musk", compte, "Elon Musk");
-        em.persist(virement);
+        compteDAO.create(virement);
 
         Operation operation = new Operation(new Date(), 100.0, "retrait d'especes", compte);
-        em.persist(operation);
+        compteDAO.create(operation);
 
-        em.getTransaction().commit();
-        em.close();
         emf.close();
     }
 }

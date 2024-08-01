@@ -10,11 +10,11 @@ public class Operation {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "date", nullable = false)
-    private Date date;
-
     @Column(name = "montant", nullable = false)
     private double montant;
+
+    @Column(name = "date", nullable = false)
+    private Date date;
 
     @Column(name = "description")
     private String description;
@@ -23,15 +23,14 @@ public class Operation {
     @JoinColumn(name = "compte_id")
     private Compte compte;
 
+    public Operation() {
+    }
+
     public Operation(Date date, double montant, String description, Compte compte) {
         this.date = date;
         this.montant = montant;
         this.description = description;
         this.compte = compte;
-    }
-
-    public Operation() {
-
     }
 
     public Long getId() {
@@ -42,20 +41,20 @@ public class Operation {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public double getMontant() {
         return montant;
     }
 
     public void setMontant(double montant) {
         this.montant = montant;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public String getDescription() {
