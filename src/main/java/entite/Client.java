@@ -24,7 +24,7 @@ public class Client {
     @JoinColumn(name = "banque_id")
     private Banque banque;
 
-    @OneToMany(mappedBy = "client")
+    @ManyToMany(mappedBy = "clients")
     private List<Compte> comptes = new ArrayList<>();
 
     public Client(String nom, String prenom, Adresse adresse, Banque banque) {

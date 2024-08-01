@@ -1,17 +1,16 @@
 package entite;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class AssuranceVie extends Compte {
     private Date dateFin;
     private double taux;
 
-    public AssuranceVie(String numero, double solde, Client client, Date dateFin, double taux) {
-        super(numero, solde, client);
-
+    public AssuranceVie(String numero, double solde, List<Client> clients, Date dateFin, double taux) {
+        super(numero, solde, clients);
         this.dateFin = dateFin;
         this.taux = taux;
     }

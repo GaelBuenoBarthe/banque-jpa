@@ -1,14 +1,14 @@
 package entite;
 
 import jakarta.persistence.Entity;
+import java.util.List;
 
 @Entity
 public class LivretA extends Compte {
-
     private double taux;
 
-    public LivretA(String numero, double solde, Client client, double taux) {
-        super(numero, solde, client);
+    public LivretA(String numero, double solde, List<Client> clients, double taux) {
+        super(numero, solde, clients);
         this.taux = taux;
     }
 

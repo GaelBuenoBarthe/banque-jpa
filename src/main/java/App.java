@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -30,7 +31,7 @@ public class App {
         Client client2 = new Client("Syla", "Séga", adresse1, banque);
         em.persist(client2);
 
-        Compte compte = new Compte("123456789", 3250.0, client1);
+        Compte compte = new Compte("123456789", 3250.0, Arrays.asList(client1, client2));
         em.persist(compte);
 
         client1.getComptes().add(compte);
@@ -52,13 +53,13 @@ public class App {
         AssuranceVie assuranceVie = null;
         try {
             Date dateFin = new SimpleDateFormat("yyyy-MM-dd").parse(dateFinStr);
-            assuranceVie = new AssuranceVie("987654321", 5000.0, client3, dateFin, 2.5);
+            assuranceVie = new AssuranceVie("987654321", 5000.0, Arrays.asList(client3), dateFin, 2.5);
             em.persist(assuranceVie);
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        LivretA livretA = new LivretA("1122334455", 3000.0, client3, 1.5);
+        LivretA livretA = new LivretA("1122334455", 3000.0, Arrays.asList(client3), 1.5);
         em.persist(livretA);
 
         client3.getComptes().add(assuranceVie);

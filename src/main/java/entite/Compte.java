@@ -16,21 +16,24 @@ public class Compte {
     @Column(name = "solde", nullable = false)
     private double solde;
 
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
+    @ManyToMany
+    @JoinTable(
+            name = "compte_client",
+            joinColumns = @JoinColumn(name = "compte_id"),
+            inverseJoinColumns = @JoinColumn(name = "client_id")
+    )
+    private List<Client> clients;
 
     @OneToMany(mappedBy = "compte")
     private List<Operation> operations;
 
-    public Compte(String numero, double solde, Client client) {
+    public Compte(String numero, double solde, List<Client> clients) {
         this.numero = numero;
         this.solde = solde;
-        this.client = client;
+        this.clients = clients;
     }
 
     public Compte() {
-
     }
 
     public Long getId() {
@@ -57,12 +60,12 @@ public class Compte {
         this.solde = solde;
     }
 
-    public Client getClient() {
-        return client;
+    public List<Client> getClients() {
+        return clients;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setClients(List<Client> clients) {
+        this.clients = clients;
     }
 
     public List<Operation> getOperations() {
